@@ -6,7 +6,7 @@
 
 A library that communicate with TWELITE wireless modules.
 
-[![Lint with mypy / black / ruff](https://github.com/dev-alnasl/mwings_python_dev/actions/workflows/lint.yml/badge.svg)](https://github.com/dev-alnasl/mwings_python_dev/actions/workflows/lint.yml)
+[![Lint with mypy / black / ruff](https://github.com/monowireless/mwings_python/actions/workflows/lint.yml/badge.svg)](https://github.com/monowireless/mwings_python/actions/workflows/lint.yml)
 [![MW-OSSLA](https://img.shields.io/badge/License-MW--OSSLA-e4007f)](LICENSE)
 
 ## Overview
@@ -38,7 +38,23 @@ Built for Python 3.12+.
     - Event
   - `App_Uart` (Mode A, simple)
 
-## Feature
+## Installation
+
+The package is available from [PyPI](https://pypi.org/project/mwings/).
+
+Use `pip`:
+
+```
+pip install mwings
+```
+
+Or `poetry`:
+
+```
+poetry add mwings
+```
+
+## Features
 
 ### Written with modern python
 
@@ -132,9 +148,8 @@ if __name__ == "__main__":
     main()
 ```
 
-Note that event handlers are not called from the main thread.
-
-When you have to use parsed data from the main thread, data should be passed by `queue` or something.
+> Note that event handlers are not called from the main thread.
+> When you have to use parsed data from the main thread, data should be passed by `queue` or something.
 
 ### Send App_Twelite packets
 
@@ -176,7 +191,9 @@ if __name__ == "__main__":
         print("...Aborting")
 ```
 
-Note that command data classes (such as `mw.serializers.app_twelite.Command`) are derived from [`pydantic.BaseModel`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel).
+> Note that command data classes (such as `mw.serializers.app_twelite.Command`) are derived from [`pydantic.BaseModel`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.
+
+**See more advanced examples at [mwings_python/examples at main](https://github.com/monowireless/mwings_python/tree/main/examples).**
 
 ## LICENSE
 

@@ -1,11 +1,13 @@
 # -*- mode: conf -*-
 [tool.poetry]
 name = "mwings"
-version = "1.0.0"
+version = "1.0.1"
 description = "Communicate with TWELITE wireless modules"
 authors = ["Mono Wireless Inc. <mono-oss@mono-wireless.com>"]
 license = "MW-OSSLA"
 readme = "README.md"
+repository = "https://github.com/monowireless/mwings_python"
+documentation = "https://monowireless.github.io/mwings_python/index.html"
 
 [tool.poetry.dependencies]
 python = "^3.12"

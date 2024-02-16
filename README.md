@@ -1,5 +1,5 @@
 <a href="https://mono-wireless.com/jp/index.html">
-    <img src="https://mono-wireless.com/common/images/logo/logo-land.svg" alt="mono wireless logo" title="MONO WIRELESS" align="right" height="60" />
+    <img src="https://twelite.net/files/logo-land.svg" alt="mono wireless logo" title="MONO WIRELESS" align="right" height="60" />
 </a>
 
 # MWings

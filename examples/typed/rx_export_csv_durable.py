@@ -50,11 +50,11 @@ def main(args: CommandArgs) -> None:
             )
             # Create file
             with open(export_path, "x") as f:
-                df.to_csv(f, header=True)
+                df.to_csv(f, header=True, index=False)
             saved_files[packet.source_serial_id.hex()] = export_path
         else:
             with open(saved_files[packet.source_serial_id.hex()], "a") as f:
-                df.to_csv(f, header=False)
+                df.to_csv(f, header=False, index=False)
 
     # Register event handlers
     @twelite.on(mw.common.PacketType.APP_ARIA)

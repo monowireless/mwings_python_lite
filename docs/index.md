@@ -1,13 +1,6 @@
-<a href="https://mono-wireless.com/jp/index.html">
-    <img src="https://mono-wireless.com/common/images/logo/logo-land.svg" alt="mono wireless logo" title="MONO WIRELESS" align="right" height="60" />
-</a>
-
 # MWings
 
 A library that communicate with TWELITE wireless modules.
-
-[![Lint with mypy / black / ruff](https://github.com/dev-alnasl/mwings_python_dev/actions/workflows/lint.yml/badge.svg)](https://github.com/dev-alnasl/mwings_python_dev/actions/workflows/lint.yml)
-[![MW-OSSLA](https://img.shields.io/badge/License-MW--OSSLA-e4007f)](LICENSE)
 
 ## Overview
 
@@ -54,9 +47,12 @@ Built for Python 3.12+.
 
 Received data can be exported easily.
 
-- [`to_dict()`](https://monowireless.github.io/mwings_python/mwings.html#mwings.common.ParsedPacketBase.to_dict) for dictionary
-- [`to_json()`](https://monowireless.github.io/mwings_python/mwings.html#mwings.common.ParsedPacketBase.to_json) for JSON string
-- [`to_df()`](https://monowireless.github.io/mwings_python/mwings.html#mwings.common.ParsedPacketBase.to_df) for Dataframe (requires pandas)
+- `to_dict()` for dictionary
+  - {class}`mwings.common.ParsedPacketBase.to_dict()`
+- `to_json()` for JSON string
+  - {class}`mwings.common.ParsedPacketBase.to_json()`
+- `to_df()` for Dataframe (requires pandas)
+  - {class}`mwings.common.ParsedPacketBase.to_df()`
     - [`to_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html) for CSV file (with pandas)
     - [`to_excel()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_excel.html) for Xlsx file (with pandas)
 
@@ -181,3 +177,19 @@ Note that command data classes (such as `mw.serializers.app_twelite.Command`) ar
 ## LICENSE
 
 MW-OSSLA
+
+## API
+
+```{eval-rst}
+.. toctree::
+   :maxdepth: 4
+   :caption: Contents:
+
+   mwings
+```
+
+## Indices and tables
+
+- {ref}`genindex`
+- {ref}`modindex`
+- {ref}`search`

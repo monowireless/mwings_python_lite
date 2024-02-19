@@ -14,50 +14,56 @@ Built for Python 3.12+.
 
   - `App_Twelite`
   - `App_IO`
-  - `App_ARIA` (ARIA mode)
-  - `App_CUE` (CUE mode, PAL Event (Move/Dice) mode)
+  - `App_ARIA`
+    - ARIA mode
+  - `App_CUE`
+    - CUE mode
+    - PAL Event (Move/Dice) mode
   - `App_PAL`
     - AMBIENT
-    - OPENCLOSE
+    - OPENCLOSE (CUE/ARIA OPENCLOSE mode)
     - MOTION
-  - `App_Uart` (Mode A, simple/extended)
+  - `App_Uart` (Mode A)
+    - Simple
+    - Extended
+  - act
 
 ### Send commands to
 
-  - `App_Twelite` (Signal)
-  - `App_PAL` NOTICE
+  - `App_Twelite` (Signals)
+  - `App_PAL` (NOTICE)
     - Simple
     - Detailed
     - Event
-  - `App_Uart` (Mode A, simple)
+  - `App_Uart` (Mode A)
+    - Simple
 
 ## Installation
 
 The package is available from [PyPI](https://pypi.org/project/mwings/).
 
-Use `pip`:
+Use `pip`
 
 ```
 pip install mwings
 ```
 
-Or `poetry`:
+Or `poetry`
 
 ```
 poetry add mwings
 ```
 
-## Feature
+## Features
 
 ### Written with modern python
 
 *Modules of the modern python, by the modern python, for the modern python.*
 
-- Built with `poetry` and `pyproject.toml`
 - Fully typed; passes `mypy --strict`
-- PEP8 compliance; formatted with `black`, passes `ruff check`
-- docstring everywhere (numpy-style)
-- Data classes are derived from `pydantic.BaseModel`
+- PEP8 compliance; formatted with `black` and passes `ruff check`
+- Built with `poetry` and `pyproject.toml`
+- numpy-style docstring, everywhere
 
 ### Great data portability
 
@@ -71,6 +77,8 @@ Received data can be exported easily.
   - {class}`mwings.common.ParsedPacketBase.to_df()`
     - [`to_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html) for CSV file (with pandas)
     - [`to_excel()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_excel.html) for Xlsx file (with pandas)
+
+> Data classes are derived from `pydantic.BaseModel`.
 
 ## Examples
 

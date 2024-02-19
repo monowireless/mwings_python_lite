@@ -144,8 +144,9 @@ def main() -> None:
     try:
         twelite.daemon = True
         twelite.start()
-        twelite.join()
         print("Started receiving")
+        while True:
+            twelite.join(0.5)
     except KeyboardInterrupt:
         print("...Stopping")
         twelite.stop()

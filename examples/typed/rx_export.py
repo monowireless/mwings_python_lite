@@ -109,8 +109,9 @@ def main(args: CommandArgs) -> None:
         twelite.daemon = True
         # Start the thread, Join to the main thread
         twelite.start()
-        twelite.join()
         print("Started receiving")
+        while True:
+            twelite.join(0.5)
     except KeyboardInterrupt:
         # Stop the thread
         print("...Stopping")

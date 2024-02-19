@@ -134,12 +134,12 @@ def ask_user_for_port() -> str:
     for i, port in enumerate(ports):
         if port.manufacturer == "MONOWIRELESS":
             # Print in magenta
-            print(f"[{i+1}]\033[35m {port.device} (Genuine)\033[00m")
+            print(f"[{i+1}] {port.device} \033[35m{port.description} (Genuine)\033[00m")
         elif port.manufacturer == "TOCOS":
             # Print in blue
-            print(f"[{i+1}]\033[34m {port.device} (Legacy)\033[00m")
+            print(f"[{i+1}] {port.device} \033[34m{port.description} (Legacy)\033[00m")
         else:
-            print(f"[{i+1}] {port.device}")
+            print(f"[{i+1}] {port.device} {port.description}")
 
     user_input = ask_user(
         f"Select [1-{len(ports)}]: ",

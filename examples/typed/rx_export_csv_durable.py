@@ -28,6 +28,7 @@ def main(args: CommandArgs) -> None:
 
     # Dictionary of saved csv files
     saved_files: dict[str, Path] = {}
+    packet_types: dict[str, str] = {}
 
     # Closure to append some packet to the dataframe
     def append(packet: mw.common.SomeParsedPacket) -> None:
@@ -44,7 +45,7 @@ def main(args: CommandArgs) -> None:
             export_path = (
                 Path.cwd()
                 .joinpath(
-                    f"{datetime.now(twelite.timezone).strftime('%Y-%m-%d-%H-%M')}-{packet.source_serial_id.hex().upper()}"
+                    f"{datetime.now(twelite.timezone).strftime('%Y-%m-%d-%H-%M')}-{packet.packet_type.title()}-{packet.source_serial_id.hex().upper()}"
                 )
                 .with_suffix(".csv")
             )
@@ -52,71 +53,73 @@ def main(args: CommandArgs) -> None:
             with open(export_path, "x") as f:
                 df.to_csv(f, header=True, index=False)
             saved_files[packet.source_serial_id.hex()] = export_path
+            packet_types[packet.source_serial_id.hex()] = packet.packet_type
         else:
             with open(saved_files[packet.source_serial_id.hex()], "a") as f:
-                df.to_csv(f, header=False, index=False)
+                if packet_types[packet.source_serial_id.hex()] == packet.packet_type:
+                    df.to_csv(f, header=False, index=False)
 
     # Register event handlers
     @twelite.on(mw.common.PacketType.APP_ARIA)
     def on_app_aria(packet: mw.parsers.app_aria.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_CUE)
     def on_app_cue(packet: mw.parsers.app_cue.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_CUE_PAL_EVENT)
     def on_app_cue_pal_event(packet: mw.parsers.app_cue_pal_event.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_IO)
     def on_app_io(packet: mw.parsers.app_io.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_PAL_AMB)
     def on_app_pal_amb(packet: mw.parsers.app_pal_amb.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_PAL_MOT)
     def on_app_pal_mot(packet: mw.parsers.app_pal_mot.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_PAL_OPENCLOSE)
     def on_app_pal_openclose(packet: mw.parsers.app_pal_openclose.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_TWELITE)
     def on_app_twelite(packet: mw.parsers.app_twelite.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.APP_UART_ASCII)
     def on_app_uart_ascii(packet: mw.parsers.app_uart_ascii.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
@@ -125,14 +128,14 @@ def main(args: CommandArgs) -> None:
         packet: mw.parsers.app_uart_ascii_extended.ParsedPacket,
     ) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
     @twelite.on(mw.common.PacketType.ACT)
     def on_act(packet: mw.parsers.act.ParsedPacket) -> None:
         print(
-            f"Received {packet.packet_type.title()} data from device {packet.source_serial_id.hex().upper()}"
+            f"Received {packet.packet_type.title()} data from the device 0x{packet.source_serial_id.hex().upper()}"
         )
         append(packet)
 
@@ -142,8 +145,9 @@ def main(args: CommandArgs) -> None:
         twelite.daemon = True
         # Start the thread, Join to the main thread
         twelite.start()
-        twelite.join()
         print("Started receiving")
+        while True:
+            twelite.join(0.5)
     except KeyboardInterrupt:
         # Stop the thread
         print("...Stopping")
@@ -151,8 +155,10 @@ def main(args: CommandArgs) -> None:
         print("Stopped")
 
     # Show result
-    for saved_file in saved_files.values():
-        print(f"Saved as {saved_file.resolve()}")
+    for serial_id_str, saved_file in saved_files.items():
+        print(
+            f"Saved {packet_types[serial_id_str].title()} data for the device 0x{serial_id_str.upper()} as {saved_file.resolve()}"
+        )
 
 
 if __name__ == "__main__":

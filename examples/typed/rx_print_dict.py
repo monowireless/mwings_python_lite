@@ -17,7 +17,7 @@ def main() -> None:
     # Use JST for received data
     twelite.set_timezone(ZoneInfo("Asia/Tokyo"))
 
-    # Register an event handlers
+    # Register event handlers
     @twelite.on(mw.common.PacketType.APP_ARIA)
     def on_app_aria(packet: mw.parsers.app_aria.ParsedPacket) -> None:
         print(packet.to_dict(verbose=False, spread=True))

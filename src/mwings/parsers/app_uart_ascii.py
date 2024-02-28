@@ -128,6 +128,6 @@ class PacketParser(common.PacketParserBase):
             "lqi": None,
             "supply_voltage": None,
             "command_id": bare_packet.u8_at(1),
-            "data": bare_packet.payload[2:-1],
+            "data": bare_packet.payload[2:],
         }
         return ParsedPacket(**parsed_packet_data)

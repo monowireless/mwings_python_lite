@@ -1039,6 +1039,14 @@ class AppPalNoticeRGBWColor(BaseModel):
     white: UInt8 = Field(default=0xF, ge=0, le=0xF)
 
     def u16(self) -> UInt16:
+        """Returns UInt16 representation
+
+        Returns
+        -------
+        UInt16
+            RGBW as UInt16
+        """
+
         return UInt16(
             (self.white & 0xF) << 12
             | (self.blue & 0xF) << 8

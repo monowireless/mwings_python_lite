@@ -186,7 +186,7 @@ class PacketParser(common.PacketParserBase):
                 4,
                 [
                     common.UInt16(
-                        bare_packet.u8_at(18 + port) * 4
+                        bare_packet.u8_at(18 + port) * 16
                         + ((bare_packet.u8_at(22) >> (port * 2)) & 0x03) * 4
                     )
                     for port in range(4)

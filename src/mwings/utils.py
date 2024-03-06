@@ -231,12 +231,12 @@ def byte_count_from(character_count: int) -> int:
     return math.floor(character_count / 2)
 
 
-def is_initialized(serial_port: serial.Serial) -> bool:
+def is_initialized(port: serial.Serial) -> bool:
     """Check if the serial port is initialized
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
 
     Returns
@@ -245,15 +245,15 @@ def is_initialized(serial_port: serial.Serial) -> bool:
         initialized if true
     """
 
-    return bool(serial_port.readable() and serial_port.writable())
+    return bool(port.readable() and port.writable())
 
 
-def is_readable(serial_port: serial.Serial) -> bool:
+def is_readable(port: serial.Serial) -> bool:
     """Check if the serial port is readable
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
 
     Returns
@@ -262,15 +262,15 @@ def is_readable(serial_port: serial.Serial) -> bool:
         readable if true
     """
 
-    return bool(serial_port.readable())
+    return bool(port.readable())
 
 
-def is_writable(serial_port: serial.Serial) -> bool:
+def is_writable(port: serial.Serial) -> bool:
     """Check if the serial port is writable
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
 
     Returns
@@ -279,15 +279,15 @@ def is_writable(serial_port: serial.Serial) -> bool:
         writable if true
     """
 
-    return bool(serial_port.writable())
+    return bool(port.writable())
 
 
-def write_binary(serial_port: serial.Serial, data: int | bytes) -> None:
+def write_binary(port: serial.Serial, data: int | bytes) -> None:
     """Write binary integer value to the serial port
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
     data : int | bytes
         Binary integer value or bytes
@@ -295,27 +295,27 @@ def write_binary(serial_port: serial.Serial, data: int | bytes) -> None:
 
     match data:
         case int():
-            if not is_writable(serial_port):
+            if not is_writable(port):
                 return None
             if not data >= 0:
                 return None
             elif data <= 0xFF:
-                serial_port.write(data.to_bytes(1))
+                port.write(data.to_bytes(1))
             elif data <= 0xFFFF:
-                serial_port.write(data.to_bytes(2))
+                port.write(data.to_bytes(2))
             elif data <= 0xFFFFFFFF:
-                serial_port.write(data.to_bytes(4))
+                port.write(data.to_bytes(4))
         case bytes():
             for byte in data:
-                write_binary(serial_port, byte)
+                write_binary(port, byte)
 
 
-def write_in_ascii(serial_port: serial.Serial, data: int | bytes) -> None:
+def write_in_ascii(port: serial.Serial, data: int | bytes) -> None:
     """Write binary in ASCII format to the serial port
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
     data : int
         Binary integer value or bytes
@@ -323,59 +323,59 @@ def write_in_ascii(serial_port: serial.Serial, data: int | bytes) -> None:
 
     match data:
         case int():
-            if not is_writable(serial_port):
+            if not is_writable(port):
                 return None
             if not data >= 0:
                 return None
             elif data <= 0xFF:
-                serial_port.write(
+                port.write(
                     bytes(
                         [character_from((data >> i) & 0x0F) for i in range(4, -1, -4)]
                     )
                 )
             elif data <= 0xFFFF:
-                serial_port.write(
+                port.write(
                     bytes(
                         [character_from((data >> i) & 0x0F) for i in range(12, -1, -4)]
                     )
                 )
             elif data <= 0xFFFFFFFF:
-                serial_port.write(
+                port.write(
                     bytes(
                         [character_from((data >> i) & 0x0F) for i in range(28, -1, -4)]
                     )
                 )
         case bytes():
             for byte in data:
-                write_in_ascii(serial_port, byte)
+                write_in_ascii(port, byte)
 
 
-def flush_rx_buffer(serial_port: serial.Serial) -> None:
+def flush_rx_buffer(port: serial.Serial) -> None:
     """Flush serial rx buffer
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
     """
 
-    serial_port.reset_input_buffer()
+    port.reset_input_buffer()
 
 
-def flush_tx_buffer(serial_port: serial.Serial) -> None:
+def flush_tx_buffer(port: serial.Serial) -> None:
     """Flush serial tx buffer
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
     """
 
-    serial_port.reset_output_buffer()
+    port.reset_output_buffer()
 
 
 def find_binary(
-    serial_port: serial.Serial,
+    port: serial.Serial,
     data: bytes,
     timeout: int,
     with_terminal: bool = False,
@@ -386,12 +386,12 @@ def find_binary(
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
     data : bytes
         Binary data bytes to find
     timeout : int
-        Timeout in milliseconds
+        Timeout in seconds
     with_terminal : bool
         Use terminal byte for data input or not
     terminal : int
@@ -405,38 +405,38 @@ def find_binary(
         Found if true
     """
 
-    if not is_initialized(serial_port):
+    if not is_initialized(port):
         return False
     if not len(data) > 0:
         return False
     timestamp: int = millis()
     while True:
-        if millis() - timestamp > timeout:
+        if millis() - timestamp > timeout * 1000:
             return False
-        if serial_port.in_waiting():
-            read_byte = serial_port.read()
+        if port.in_waiting:
+            read_byte = port.read()
             if debugging:
-                print(read_byte.decode("ascii"))
+                print(read_byte.decode("utf-8"))
             if int.from_bytes(read_byte) == data[0]:  # compare as int
                 break
     for datum in data[1:]:  # omit the first one
         if with_terminal and terminal == datum:
             break
         while True:
-            if millis() - timestamp > timeout:
+            if millis() - timestamp > timeout * 1000:
                 return False
-            if serial_port.in_waiting():
-                read_byte = serial_port.read()
+            if port.in_waiting:
+                read_byte = port.read()
                 if debugging:
-                    print(read_byte.decode("ascii"))
+                    print(read_byte.decode("utf-8"))
                 if int.from_bytes(read_byte) == datum:
                     break
                 else:
                     # If data is invalid, retry recursively.
                     return find_binary(
-                        serial_port,
+                        port,
                         data,
-                        timeout - millis() + timestamp,
+                        timeout * 1000 - millis() + timestamp,
                         with_terminal,
                         terminal,
                         debugging,
@@ -445,18 +445,18 @@ def find_binary(
 
 
 def find_ascii(
-    serial_port: serial.Serial, data: str, timeout: int, debugging: bool = False
+    port: serial.Serial, data: str, timeout: int, debugging: bool = False
 ) -> bool:
     """Find ASCII-formatted bytes in serial rx data
 
     Parameters
     ----------
-    serial_port : serial.Serial
+    port : serial.Serial
         pyserial instance
     data : str
         ASCII-formatted bytes to find
     timeout : int
-        Timeout in milliseconds
+        Timeout in seconds
     debugging : bool
         Print debug info if true
 
@@ -466,4 +466,4 @@ def find_ascii(
         Found if true
     """
 
-    return find_binary(serial_port, str.encode("ascii"), timeout, False, 0, debugging)
+    return find_binary(port, data.encode("ascii"), timeout, False, 0, debugging)

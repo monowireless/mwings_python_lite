@@ -413,6 +413,12 @@ class Twelite(Thread):
                     return False
                 else:
                     self.send(serialized_data)
+            case serializers.app_io.Command():
+                serialized_data = serializers.app_io.CommandSerializer.serialize(data)
+                if serialized_data is None:
+                    return False
+                else:
+                    self.send(serialized_data)
             case serializers.app_pal_notice.Command():
                 serialized_data = (
                     serializers.app_pal_notice.CommandSerializer.serialize(data)

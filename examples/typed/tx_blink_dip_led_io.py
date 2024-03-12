@@ -4,6 +4,14 @@
 
 # MWings example: Send App_IO, blinking, typed
 
+# Caution: Requires App_Wings v1.3.2+.
+# At this time (early 2024), MWSDK has old version.
+# You can download them from below links.
+# - https://twelite.net/files/App_Wings_BLUE_L1305_V1-3-2.bin
+# - https://twelite.net/files/App_Wings_RED_L1305_V1-3-2.bin
+# - https://twelite.net/files/App_Wings_MONOSTICK_BLUE_L1305_V1-3-2.bin
+# - https://twelite.net/files/App_Wings_MONOSTICK_RED_L1305_V1-3-2.bin
+
 from time import sleep
 from typing import Any
 

@@ -6,6 +6,7 @@
 
 # Redundant imports for mypy
 from . import app_twelite as app_twelite
+from . import app_io as app_io
 from . import app_pal_notice as app_pal_notice
 from . import app_pal_notice_detailed as app_pal_notice_detailed
 from . import app_pal_notice_event as app_pal_notice_event

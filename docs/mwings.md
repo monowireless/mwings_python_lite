@@ -141,6 +141,15 @@
    :show-inheritance:
 ```
 
+#### `mwings.serializers.app_io` module
+
+```{eval-rst}
+.. automodule:: mwings.serializers.app_io
+   :members:
+   :no-private-members:
+   :show-inheritance:
+```
+
 #### `mwings.serializers.app_pal_notice` module
 
 ```{eval-rst}

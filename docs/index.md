@@ -31,6 +31,7 @@ Built for Python 3.12+.
 ### Send commands to
 
   - `App_Twelite` (Signals)
+  - `App_IO` (Digital Signals)
   - `App_PAL` (NOTICE)
     - Simple
     - Detailed

@@ -7,12 +7,14 @@
 from time import sleep
 from typing import Any
 
-import mwings as mw
+import mwingslite as mw
 
 
 def main() -> None:
     # Create twelite objec
-    twelite = mw.Twelite(mw.utils.ask_user_for_port())
+    twelite = mw.Twelite("/dev/ttyS0")  # For RasPi (serial0)
+    # twelite = mw.Twelite("/dev/ttyUSB0") # For RasPi (USB)
+    # twelite = mw.Twelite(mw.utils.ask_user_for_port())
 
     # Create command (initialize in pydantic style)
     initial: dict[str, Any] = {

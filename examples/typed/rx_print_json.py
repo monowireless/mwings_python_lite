@@ -6,13 +6,15 @@
 
 from zoneinfo import ZoneInfo
 
-import mwings as mw
+import mwingslite as mw
 
 
 # Main function
 def main() -> None:
     # Create a twelite object
-    twelite = mw.Twelite(mw.utils.ask_user_for_port())
+    twelite = mw.Twelite("/dev/ttyS0")  # For RasPi (serial0)
+    # twelite = mw.Twelite("/dev/ttyUSB0") # For RasPi (USB)
+    # twelite = mw.Twelite(mw.utils.ask_user_for_port())
 
     # Use JST for received data
     twelite.set_timezone(ZoneInfo("Asia/Tokyo"))

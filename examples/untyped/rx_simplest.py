@@ -1,6 +1,7 @@
 # fmt: off
-import mwings as mw
-twelite = mw.Twelite(mw.utils.ask_user_for_port())
+import mwingslite as mw
+twelite = mw.Twelite("/dev/ttyS0") # For RasPi (serial0)
+# twelite = mw.Twelite("/dev/ttyUSB0") # For RasPi (USB)
 @twelite.on(mw.common.PacketType.APP_TWELITE)
 def on_app_twelite(packet):
     print(packet.to_json())

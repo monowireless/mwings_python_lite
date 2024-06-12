@@ -1,6 +1,6 @@
-# MWings
+# MWings (Lite edition)
 
-A library that communicate with TWELITE wireless modules.
+A library that communicate with TWELITE wireless modules (Lite edition).
 
 ## Overview
 
@@ -8,7 +8,16 @@ Receive packets from and send commands to TWELITE child devices through the conn
 
 The `App_Wings` firmware must be written to the TWELITE parent device connected to the host.
 
-Built for Python 3.12+.
+Built for Python 3.11+.
+
+### Differences between mwings and mwingslite
+
+- Renamed module to `mwingslite` from `mwings`
+- Removed some heavy dependencies (pandas and numpy, pyarrow, etc.)
+  - `to_df()` is not available, raises `EnvironmentError`
+- Built for Python 3.11+ (not 3.12+)
+
+Scripts are same as [original](https://github.com/monowireless/mwings_python). Only configs or docs are different.
 
 ### Receive packets from
 
@@ -41,18 +50,18 @@ Built for Python 3.12+.
 
 ## Installation
 
-The package is available from [PyPI](https://pypi.org/project/mwings/).
+The package is available on [PyPI](https://pypi.org/project/mwingslite/).
 
 Use `pip`
 
 ```
-pip install mwings
+pip install mwingslite
 ```
 
 Or `poetry`
 
 ```
-poetry add mwings
+poetry add mwingslite
 ```
 
 ## Features
@@ -70,14 +79,8 @@ poetry add mwings
 
 Received data can be exported easily.
 
-- `to_dict()` for dictionary
-  - {class}`mwings.common.ParsedPacketBase.to_dict()`
-- `to_json()` for JSON string
-  - {class}`mwings.common.ParsedPacketBase.to_json()`
-- `to_df()` for Dataframe (requires pandas)
-  - {class}`mwings.common.ParsedPacketBase.to_df()`
-    - [`to_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html) for CSV file (with pandas)
-    - [`to_excel()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_excel.html) for Xlsx file (with pandas)
+- [`to_dict()`](https://monowireless.github.io/mwings_python_lite/mwingslite.html#mwingslite.common.ParsedPacketBase.to_dict) for dictionary
+- [`to_json()`](https://monowireless.github.io/mwings_python_lite/mwingslite.html#mwingslite.common.ParsedPacketBase.to_json) for JSON string
 
 > Data classes are derived from `pydantic.BaseModel`.
 
@@ -92,7 +95,7 @@ Simplest way to receive some parsed packets.
 Below script shows how to receive App_Twelite packets in blocking operations.
 
 ```python
-import mwings as mw
+import mwingslite as mw
 
 
 def main() -> None:
@@ -125,7 +128,7 @@ The `Twelite` class is a subclass of the [`threading.Thread`](https://docs.pytho
 Below script shows how to receive packets in another thread.
 
 ```python
-import mwings as mw
+import mwingslite as mw
 
 
 def main() -> None:
@@ -167,7 +170,7 @@ Below script shows how to blink an LED on the DO1 port.
 from time import sleep
 from typing import Any
 
-import mwings as mw
+import mwingslite as mw
 
 
 def main() -> None:
@@ -197,9 +200,9 @@ if __name__ == "__main__":
         print("...Aborting")
 ```
 
-> Note that command data classes (such as `mw.serializers.app_twelite.Command`) are derived from [`pydantic.BaseModel`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel).
+> Note that command data classes (such as `mw.serializers.app_twelite.Command`) are derived from [`pydantic.BaseModel`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.
 
-**See more advanced examples at [mwings_python/examples at main](https://github.com/monowireless/mwings_python/tree/main/examples).**
+**See more advanced examples at [mwings_python_lite/examples at main](https://github.com/monowireless/mwings_python_lite/tree/main/examples).**
 
 ## LICENSE
 
@@ -212,7 +215,7 @@ MW-OSSLA
    :maxdepth: 4
    :caption: Contents:
 
-   mwings
+   mwingslite
 ```
 
 ## Indices and tables

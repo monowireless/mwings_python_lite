@@ -6,15 +6,15 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../src/mwings"))
-sys.path.insert(0, os.path.abspath("../src/mwings/parsers"))
+sys.path.insert(0, os.path.abspath("../src/mwingslite"))
+sys.path.insert(0, os.path.abspath("../src/mwingslite/parsers"))
 
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "MWings"
-copyright = "2023, Mono Wireless Inc."
+project = "MWings (Lite edition)"
+copyright = "2024, Mono Wireless Inc."
 author = "Mono Wireless Inc."
 
 # -- General configuration ---------------------------------------------------
